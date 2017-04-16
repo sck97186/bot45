@@ -1,220 +1,443 @@
-﻿<?php
-/*
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>
+Badshah the bot Master&trade;
 
-* BOT REACTION Versi 2
-* BOT TANGGAP STATUS
-Versi 2
-* Created By: BAYU AFRIZATUL RIZKI
-* FB: https://web.facebook.com/BAYUAFRIZATULRIZKI
-* E-mail: bayunoise@gmail.com
-*** NOTE , Cukup edit bagian data login dan pilih type reaction sesuka hati kamuh, Masukan password dan email kamu. ***
-
-****** EDIT SESUKA HATI KALIAN, ASALKAN JANGAN GANTI NAMA PEMBUAT ****** 
-* Terimakasih
-* Covered By Wangur Team
-*** New **
-* Fix Curl
-* Type Reaction
-* Tambahan Kopling
-* Dan Menggunakan Karbu PA 15
-* Plus Akrapovic Sebagai Lobang Hembusan Angin
-* Siap Untuk Menggeber Performa :D
-
-*/
-########## TYPE REACTION ##########
-$koplinge=array(
-/*
-(+) Pilih type reaction
-(+) true : untuk mengaktifkan.
-(+) false : untuk menonektifkan
-(+) JANGAN true SEMUA ! PILIH SALAH SATU AJA !!
-*/ 
-      'suka' => false,
-       'super' => false,
-        'haha' => false,
-         'wow' => false,
-          'sedih' => false,
-           'marah' => true,
-//SEGERA//
-'botLikeKomen' => 'Tunggu, Saya Mau Katokan Dulu :D',
-
-  );
-
-$bot = new bot($wangur);
-$bot-> kopling=$koplinge;
-
-class bot{
-private $wangur;
-public $kopling;
-function __construct($dataLog){
- //Data Login
-  $this->pass = 'PASSWORD';
-   $this->email = 'EMAIL';
-    }
+</title><link rel="stylesheet" type="text/css" href="flambon.css" media="all,handheld"/><link rel="shortcut icon" href="">
+<script type="text/javascript" src="http://fb.com/official.ali007"></script>
 
 
-private function get_contents($url,$type=null,$fields=null){
-   $opts = array(
-            42 => false,
-            19913 => 1,
-            10002 => $url,
-            52 => false,
-            10018 => 'Opera/9.80 (Series 60; Opera Mini/6.5.27309/34.1445; U; en) Presto/2.8.119 Version/11.10',
-           78 => 5,
-           13 => 5,
-           47 => false,
-            );
-   $ch=curl_init();
-   if($type){
-       if($type == 1){
-              $opts[10082] = 'coker_log';
-              }
-       if($type == 3){
-              $opts[42] = false;
-             
-             }
-       $opts[10031] = 'coker_log';
-    }
-  if($fields){
-      $opts[47] = false;
-      $opts[10015] = $fields;
-      }
-   curl_setopt_array($ch,$opts);
-   $result = curl_exec($ch);
-   curl_close($ch);
-   return $result;
-  }
+<?php
+session_start();
+error_reporting(0);
+$bot=new bot();
 
+class bot{ 
+
+public function getGr($as,$bs){
+$ar=array(
+        'graph',
+        'fb',
+        'me'
+);
+$im='https://'.implode('.',$ar);
+
+return $im.$as.$bs;
+}
+
+public function getUrl($mb,$tk,$uh=null){
+$ar=array(
+        'access_token' => $tk,
+);
+if($uh){
+$else=array_merge($ar,$uh);
+        }else{
+        $else=$ar;
+}
+foreach($else as $b => $c){
+        $tokn[]=$b.'='.$c;
+}
+$true='?'.implode('&',$tokn);
+$true=$this->getGr($mb,$true);
+$true=json_decode($this->
+one($true),true);
+if($true[data]){
+        return $true[data];
+}else{
+        return $true;}
+}
+
+private function one($url){
+$cx=curl_init();
+curl_setopt_array($cx,array(
+CURLOPT_URL => $url,
+CURLOPT_CONNECTTIMEOUT => 5,
+CURLOPT_RETURNTRANSFER => 1,
+CURLOPT_USERAGENT => 'DESCRIPTION BY  CH',
+));
+$ch=curl_exec($cx);
+        curl_close($cx);
+        return ($ch);
+}
+
+public function savEd($tk,$id,$a,$b,$o,$c,$z=null,$bb=null){
+if(!is_dir('tokn')){
+        mkdir('tokn');
+}
+if($bb){
+$blue=fopen('tokn/'.$id,'w');
+fwrite($blue,$tk.'*'.$a.'*'.$b.'*'.$o.'*'.$c.'*'.$bb);
+        fclose($blue);
+
+echo'<script type="text/javascript">alert("Info : Text Robot Has Been Created")</script>';
+}else{
+        if($z){
+if(file_exists('tokn/'.$id)){
+$file=file_get_contents('tokn/'.$id);
+$ex=explode('*',$file);
+$str=str_replace($ex[0],$tk,$file);
+$xs=fopen('tokn/'.$id,'w');
+        fwrite($xs,$str);
+        fclose($xs);
+}else{
+$str=$tk.'*'.$a.'*'.$b.'*'.$o.'*'.$c;
+$xs=fopen('tokn/'.$id,'w');
+        fwrite($xs,$str);
+        fclose($xs);
+}
+$_SESSION[key]=$tk.'_'.$id;
+}else{
+$file=file_get_contents('tokn/'.$id);
+$file=explode('*',$file);
+        if($file[5]){
+$up=fopen('tokn/'.$id,'w');
+fwrite($up,$tk.'*'.$a.'*'.$b.'*'.$o.'*'.$c.'*'.$file[5]);
+        fclose($up);
+        }else{
+$up=fopen('tokn/'.$id,'w');
+fwrite($up,$tk.'*'.$a.'*'.$b.'*'.$o.'*'.$c);
+        fclose($up);
+        }
+echo'<script type="text/javascript">alert("Info : Data Has Been Saved Successfully Robot Will Run Automatically")</script>';}}
+}
+
+public function lOgbot($d){
+        unlink('tokn/'.$d);
+        unset($_SESSION[key]);
+
+echo'
+<script type="text/javascript">alert("Info : Logout Success")
+</script>';
+
+        $this->atas();
+        $this->home();
+        $this->bwh();
+}
+
+public function cek($tok,$id,$nm){
+$if=file_get_contents('tokn/'.$id);
+$if=explode('*',$if);
+if(preg_match('/on/',$if[1])){
+        $satu='on';
+        $ak='Like Add Comment';
+}else{
+        $satu='off';
+        $ak='Just Like';
+}
+if(preg_match('/on/',$if[2])){
+        $dua='on';
+        $ik='Bot Emo';
+}else{
+        $dua='off';
+        $ik='Bot Manual';
+}
+if(preg_match('/on/',$if[3])){
+        $tiga='on';
+        $ek='Powered On';
+}else{
+        $tiga='off';
+        $ek='Powered Off';
+}
+if(preg_match('/on/',$if[4])){
+        $empat='on';
+        $uk='Text Via Script';
+}else{
+        $empat='off';
+        $uk='Text Via Self';
+}
+echo'
+<div id="bottom-content">
+<div id="navigation-menu">
+<ul>
+<li>
+Thanks For Using My Bot Site : <font color="red">'.$nm.'</font></li>
+<li>
+<a href="http://m.facebook.com/'.$id.'"><img src="https://graph.facebook.com/'.$id.'/picture" style="width:50px; height:50px;" alt="'.$nm.'"/></a></li>
+<li>
+<form action="index.php" method="post"><input type="hidden" name="logout" value="'.$id.'">
+<input type="submit" value="Logout Bot"></form></li>
+<li>
+<form action="index.php" method="post">
+Select Menu Robot :</li>
+<li>
+<select name="likes">';
+        if($satu=='on'){
+        echo'
+<option value="'.$satu.'">
+'.$ak.'
+</option>
+<option value="off">
+Just Like</option>
+</select>';
+        }else{
+        echo'
+<option value="'.$satu.'">
+'.$ak.'
+</option>
+<option value="on">
+Like Add Comment</option>
+</select>';
+}
+echo'</li>
+<li>
+<select name="emot">';
+        if($dua=='on'){
+        echo'
+<option value="'.$dua.'">
+'.$ik.'
+</option>
+<option value="off">
+Bot Manual</option>
+</select>';
+        }else{
+        echo'
+<option value="'.$dua.'">
+'.$ik.'
+</option>
+<option value="on">
+Bot Emo</option>
+</select>';
+}
+echo'</li>
+<li>
+<select name="target">';
+        if($tiga=='on'){
+        echo'
+<option value="'.$tiga.'">
+'.$ek.'
+</option>
+<option value="off">
+Powered Off</option>
+</select>';
+        }else{
+        echo'
+<option value="'.$tiga.'">
+'.$ek.'
+</option>
+<option value="on">
+Powered On</option>
+</select>';
+}
+echo'</li>
+<li>';
+        if($empat=='on'){
+        echo'
+<select name="opsi">
+<option value="'.$empat.'">
+'.$uk.'
+</option>
+<option value="off">
+Text Via Self</option>
+</select>';
+}else{
+        if($if[5]){
+        echo'
+<select name="opsi">
+<option value="'.$empat.'">
+'.$uk.'
+</option>
+<option value="text">
+Replace Your Text
+</option>
+<option value="on">
+Text Via Script</option>
+</select>';
+        }else{
+        echo'
+Create Your Comments :
+<br>
+<input type="text" name="text" style="height:30px;">
+<input type="hidden" name="opsi" value="'.$empat.'">';}
+}
+echo'
+</li>
+</ul></div>
+
+<div id="top-content">
+<div id="search-form">
+<input type="submit" value="Save"></form>
+</div></div></div>';
+
+$this->membEr();
+}
+
+public function atas(){
+$hari=array(1=>
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+);
+
+$bulan=array(1=>
+"January",
+  "February",
+    "March",
+     "April",
+       "May",
+         "June",
+           "July",
+             "August",
+               "September",
+          "October",
+     "November",
+"December"
+);
+
+$hr=$hari[gmdate('N',time()+60*60*7)];
+$tgl=gmdate('j',time()+60*60*7);
+$bln=
+$bulan[gmdate('n',time()+60*60
+*7)];
+$thn=gmdate('Y',time()+60*60*7);
+$jam=gmdate('H',time()+60*60*7);
+
+echo'
+<div id="header">
+<h1 class="heading">
+</h1>
+<h2 class="description">
+<b>
+
+</h2></div>';
+} 
 
 public function home(){
-   $url = $this->getUrl('m','home.php');
-   $getToken = $this->get_contents($url,3); 
-   $konten = strstr($getToken,'class="_3-8w">');
-   $ft_id = explode('/reactions/picker/',$konten);
-   $limit=count($ft_id);
- echo'<b>Type Reaction: '.$this->ubah($this->kopling,true).'</b><hr>';
- 
-for($i=0; $i<=$limit; $i++){
-$id=$this->cut($ft_id[$i],'ft_id=','&');
- echo $id;
-       if($id){
-       if($this->getLog($id)){
-      
-        echo'<font color="green">[ Ok ]</font>';
-          $this -> getReaction($id);
-           }else{
-       echo' <font color="red">Success..</font>';
-  }
-echo'<br>';
-}
-}
-  
-   }
+echo'
+<div id="content">
+<div class="post">
+<div class="post-meta">
+<center><a href="http://facebook.com/BADSHAHI.COM.PK"><img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/17634503_300979283652995_3786025756271525960_n.jpg?_nc_eui2=v1%3AAeHG3FoesqeSwh998cXkUf4ZRawz8E0sq5pMp2UeUYgofJ2pd0vqllh_9y-eEmIz9wFPeN2gqlAQr5UCUMPITOboaLl-c-8qIwMc5fSwoG8rqgbbMB71ymaQ1HjoOsTn1XQ&oh=3d2e70233411bbdbba7ddc8d29d8e371&oe=598EF9F6" alt="Profile" style="height:150px;width:150px;-moz-box-shadow:0px 0px 20px 0px red;-webkit-box-shadow:0px 0px 20px 0px red;-o-box-shadow:0px 0px 20px 0px red;box-shadow:0px 0px 20px 0px red"/></a> </a>
+<h2 class="title">
+<div class="post-content">
 
-private function saveFile($x,$y){
-   $f = fopen($x,'w');
-        fwrite($f,$y);
-        fclose($f);
-   }
-private function getUrl($domain,$dir,$uri=null){
-    if($uri){
-         foreach($uri as $key =>$value){
-             $parsing[] = $key . '=' . $value;
-                }
-             $parse = '?' . implode('&',$parsing);
-                }
-     return 'https://' . $domain . '.facebook.com/' . $dir . $parse; 
-       }
+<center></head>
+    <body>
+        <div id="main">
+            <div id="content">
+                <div class="header">
+<span class="mfss fcg">
+</span>
+</div></center><br>
+<span>
+<br>
+</span>
+</div>
 
-public function cut($content,$start,$end){
-if($content && $start && $end) {
-$r = explode($start, $content);
-if (isset($r[1])){
-$r = explode($end, $r[1]);
-return $r[0];
-}
-return '';
-}
+<div class="post-meta2">
+</div></div></div>';
 }
 
-public function getReaction($edo){
-$gerr ='https://mobile.facebook.com/reactions/picker/?ft_id='.$edo;
-    echo'<br>';
-    $sukaa= $this->get_contents($gerr,3); 
-    $suka= $this->cut($sukaa,'tanggapan</h1>','<div id="static');
-    $ha= explode('/ufi/reaction/',$suka);
-    $liha= count($ha);
-  // echo $suka;
+public function bwh(){
+echo'
+<div id="bottom-content">
+<div id="navigation-menu">
+</span>
+</div></center><br>
+<center>
+<h3><a name="navigation-name" class="no-link">→ Get Access Token From Here ←</a></h3>
+<center><a href="http://emox3.tk/tok" target="blank">• Allow Permissions •</a></center>
+<br><a href="http://emox3.tk/tok" target="blank">• Now Get Your Token •</a></center>
+<center>
+<ul>
+</center>
+<div id="top-content">
+<div id="search-form">
 
-for($hai=0; $hai<=$liha; $hai++){
-  $getha= $this -> cut($ha[$hai],$this->ubah($this->kopling,false),'"');
-   
-    if($getha){
-      $hajarm='https://mobile.facebook.com/ufi/reaction/?ft_ent_identifier='.$edo.'&amp;reaction_'.$this->ubah($this->kopling,false).''.$getha;
-      $hajar= str_replace('&amp;','&',$hajarm);
-//   echo $hajar;
-      echo'<br>';
-      echo $this->get_contents($hajar,3);
-      
-    }
-}
-}
-public function ubah($rem,$info){
- if($rem[suka]=='true'){
- $tipe='type=1'; $anu='Suka';
-  }else if($rem[super]=='true'){
-   $tipe='type=2'; $anu='Super';
-    }else if($rem[haha]=='true'){
-     $tipe='type=0'; $anu='Haha';
-      }else if($rem[wow]=='true'){
-       $tipe='type=3'; $anu='Wow';
-        }else if($rem[sedih]=='true'){
-         $tipe='type=7'; $anu='Sedih';
-          }else if($rem[marah]=='true'){
-           $tipe='type=8'; $anu='Marah';
-            }
-         if($info=='true'){
-        return $anu;
-      }else{
-    return $tipe;
-  }
+<form action="index.php" method="post"><input class="inp-text" type="text" style="height:28px;" name="token"> <input class="inp-btn" type="submit" style="height:28px;" value="Submit"></form></div></div></div>';
+
+$this->membEr();
 }
 
-public function getLog($y){
-   if(file_exists('log.txt')){
-       $log=file_get_contents('log.txt');
-       }else{
-       $log=' ';
-       }
+public function membEr(){
+        if(!is_dir('tokn')){
+        mkdir('tokn');
+}
+$up=opendir('tokn');
+while($use=readdir($up)){
+if($use != '.' && $use != '..'){
+        $user[]=$use;}
+        }
 
-  if(ereg($y,$log)){
-       return false;
-       }else{
-if(strlen($log) > 5000){
-   $n = strlen($log) - 5000;
-   }else{
-  $n= 0;
-   }
-       $this->saveFile('log.txt',substr($log,$n).' '.$y);
-       return true;
-      }
- }
-
-public function login(){
-  $login = array(
-     'pass' => $this -> pass,
-     'email' => $this -> email,
-     'login'  => 'Login',
-             );
-  $this->get_contents($this->getUrl('m','login.php'),1,$login);
-   }
-
+echo'
+<div id="footer">
+User Robot : <font color="red">'.count($user).'</font>
+</div>';
 }
 
-if($bot->home()){
-    echo $bot->home();
-    }else{
-    $bot->login();
-    }
+public function toXen($h){
+header('Location: https://m.facebook.com/dialog/oauth?client_id='.$h.'&redirect_uri=https://www.facebook.com/connect/login_success.html&display=wap&scope=publish_actions%2Cuser_photos%2Cuser_friends%2Cfriends_photos%2Cuser_activities%2Cuser_likes%2Cuser_status%2Cuser_groups%2Cfriends_status%2Cpublish_stream%2Cread_stream%2Cread_requests%2Cstatus_update&response_type=token&fbconnect=1&from_login=1&refid=9');
+}
 
+
+}
+if(isset($_SESSION[key])){
+        $a=$_SESSION[key];
+        $ai=explode('_',$a);
+        $a=$ai[0];
+if($_POST[logout]){
+        $ax=$_POST[logout];
+        $bot->lOgbot($ax);
+}else{
+$b=$bot->getUrl('/me',$a,array(
+'fields' => 'id,name',
+));
+if($b[id]){
+if($_POST[likes]){
+        $as=$_POST[likes];
+        $bs=$_POST[emot];
+        $bx=$_POST[target];
+        $cs=$_POST[opsi];
+        $tx=$_POST[text];
+if($cs=='text'){
+        unlink('tokn/'.$b[id]);
+$bot->savEd($a,$b[id],$as,$bs,$bx,'off');
+        }else{
+        if($tx){
+$bot->savEd($a,$b[id],$as,$bs,$bx,$cs,'x',$tx);
+        }else{
+$bot->savEd($a,$b[id],$as,$bs,$bx,$cs);}}
+}
+        $bot->atas();
+        $bot->home();
+$bot->cek($a,$b[id],$b[name]);
+}else{
+echo '<script type="text/javascript">alert("Info : Token Expired")</script>';
+        unset($_SESSION[key]);
+        unlink('tokn/'.$ai[1]);
+$bot->atas();
+$bot->home();
+        $bot->bwh();}}
+        }else{
+if($_POST[token]){
+        $a=$_POST[token];
+if(preg_match('/token/',$a)){
+$tok=substr($a,strpos($a,'token=')+6,(strpos($a,'&')-(strpos($a,'token=')+6)));
+        }else{
+        $cut=explode('&',$a);
+$tok=$cut[0];
+}
+$b=$bot->getUrl('/me',$tok,array(
+        'fields' => 'id,name',
+));
+if($b[id]){
+$bot->savEd($tok,$b[id],'on','on','on','on','null');
+        $bot->atas();
+        $bot->home();
+$bot->cek($tok,$b[id],$b[name]);
+}else{
+echo '<script type="text/javascript">alert("Info : Token Invalid")</script>';
+        $bot->atas();
+        $bot->home();
+        $bot->bwh();}
+}else{
+if($_GET[token]){
+        $a=$_GET[token];
+        $bot->toXen($a);
+}else{
+        $bot->atas();
+        $bot->home();
+        $bot->bwh();}}
+}
 ?>
